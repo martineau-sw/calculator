@@ -6,11 +6,11 @@ A calculator page that displays the most recent entry/result that can add, subtr
 
 ## Steps
 
-- [ ] Math functions
-	- [ ] add
-	- [ ] subtract
-	- [ ] multiply
-	- [ ] divide
+- [x] Math functions
+	- [x] add
+	- [x] subtract
+	- [x] multiply
+	- [x] divide
 - [ ] Operator variable
 - [ ] Operand variables
 - [ ] Operate function, accepts operator and operands and calls respective math function
