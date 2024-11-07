@@ -9,38 +9,42 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
+
+  background-image: linear-gradient(45deg, slategray, steelblue);
+  mix-blend-mode: multiply;
 }
 
 #calculator {
   display: flex;
   flex-direction: column;
+  width: 25vw;
+  gap: 2%
 }
 
 #display {
   text-align: right;
+  font-size: 3vh;
+  padding: 1vh;
+  background-color: lightgray;
+  color: white;
+  height: 4vh;
+}
+
+#functions {
+  display: flex;
 }
 
 #buttons {
   display: flex;
-  align-items: stretch;
-  gap: 3%;
-
-  
+  flex-direction: column;
+  gap: 2%;
 }
 
 #numpad {
   display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  flex: auto;
   gap: 2%;
-}
-
-.key {
-  flex: 1 1 30%;
 }
 
 #operators {
@@ -48,11 +52,31 @@ body {
   display: flex;
   flex-direction: column;
   flex: auto;
-  gap: 2%;
+}
+
+#numbers {
+  display: flex;
+  flex-wrap: wrap;
+  flex: auto;
+}
+
+.key {
+  flex: 1 1 30%;
 }
 
 button {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
+  color: darkgray;
   padding: 1vw;
+  border: none;
+}
+
+button:hover {
+  background-color: white;
+}
+
+button:active {
+  background-color: lightgray;
+  color: white;
 }

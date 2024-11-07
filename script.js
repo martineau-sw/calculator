@@ -20,7 +20,7 @@ function divide(x, y) {
 let decimal = false;
 
 function enterDigit(number) {
-  if (entry.length === 9) return;
+  if (entry.length === 15) return;
 
   if (number === '.') {
     if (!decimal) {
@@ -30,7 +30,6 @@ function enterDigit(number) {
         entry += '.';
       }
       decimal = true;
-      console.log(entry);
       updateDisplay(entry);
       return;
     }
@@ -46,12 +45,14 @@ function enterDigit(number) {
   } else {
     entry += number;
   }
-  console.log(entry);
   updateDisplay(entry);
 }
 
 function removeDigit() {
-  if (entry.length === 0) return;
+  if (entry.length === 0) {
+    updateDisplay('');
+    return;
+  };
   if (entry.at(-1) === '.') {
     decimal = false;
   }
@@ -69,6 +70,7 @@ function enterOperator(symbol) {
     }
   }
   entry = '';
+  decimal = false;
   operator = symbol;
 }
 
@@ -97,11 +99,11 @@ function clear() {
 function updateDisplay(number) {
   let digits = number.toString();
 
-  if (digits.length > 9) {
+  if (digits.length > 15) {
     const decimalIndex = digits.indexOf('.');
     if (decimalIndex < 0) digits = number.toExponential(4).toString();
-    else if (decimalIndex > 0 && decimalIndex < 9) {
-      digits = number.toFixed(8 - decimalIndex);
+    else if (decimalIndex > 0 && decimalIndex < 15) {
+      digits = number.toFixed(14 - decimalIndex);
     }
   }
 
@@ -117,8 +119,8 @@ function operate() {
   switch (operator) {
     case '+': return add(stored, entry);
     case '-': return subtract(stored, entry); 
-    case '*': return multiply(stored, entry); 
-    case '/': return divide(stored, entry);
+    case '×': return multiply(stored, entry); 
+    case '÷': return divide(stored, entry);
   }
 }
 

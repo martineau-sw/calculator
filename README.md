@@ -14,8 +14,8 @@ A calculator page that displays the most recent entry/result that can add, subtr
 - [x] Operator variable
 - [x] Operand variables
 - [x] Operate function, accepts operator and operands and calls respective math function
-- [ ] HTML calculator interface with operator, numbers, equal and clear buttons
-- [ ] Link
+- [x] HTML calculator interface with operator, numbers, equal and clear buttons
+- [x] Link
 
 ## Problem Solving
 
