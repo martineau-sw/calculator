@@ -128,37 +128,80 @@ function applyEventHandlers() {
   const numpad = document.querySelector('#numpad');
 
   buttons.addEventListener('click', event => {
-    switch (event.target.id) {
-      case 'one':
-      case 'two':
-      case 'three':
-      case 'four':
-      case 'five':
-      case 'six':
-      case 'seven':
-      case 'eight':
-      case 'nine':
-      case 'zero':
-      case 'period':
-        enterDigit(event.target.textContent);
-        break;
-      case 'add':
-      case 'subtract':
-      case 'multiply':
-      case 'divide':
-        enterOperator(event.target.textContent);
-        break;
-      case 'equals':
-        enterEqual();
-        break;
-      case 'back':
-        removeDigit();
-        break;
-      case 'clear':
-        clear();
-        break;
-    }
+    parseActionFromId(event.target.id);
   });
+
+  document.addEventListener('keydown', event => {
+    const button = document.querySelector(`#${eventKeyToId(event)}`);
+    if (button == undefined) return;
+    button.classList.add('pressed');
+    parseActionFromId(button.id);
+  });
+
+  document.addEventListener('keyup', event => {
+    const button = document.querySelector(`#${eventKeyToId(event)}`);
+    if (button == undefined) return;
+    button.classList.remove('pressed');
+  });
+}
+
+function eventKeyToId(event) {
+  switch (event.key) {
+    case '1': return 'one';
+    case '2': return 'two';
+    case '3': return 'three';
+    case '4': return 'four';
+    case '5': return 'five';
+    case '6': return 'six';
+    case '7': return 'seven';
+    case '8': return 'eight';
+    case '9': return 'nine';
+    case '0': return 'zero';
+    case '.': return 'period';
+    case 'Enter':
+    case '=': return 'equals';
+    case 'Backspace': 
+      if (event.shiftKey) return 'clear';
+      return 'back';
+    case '+': return 'add';
+    case '-': return 'subtract';
+    case '*': return 'multiply';
+    case '/': return 'divide';
+  }
+}
+
+function parseActionFromId(id) {
+  const selected = document.querySelector(`#${id}`);
+  switch (id) {
+    case 'one':
+    case 'two':
+    case 'three':
+    case 'four':
+    case 'five':
+    case 'six':
+    case 'seven':
+    case 'eight':
+    case 'nine':
+    case 'zero':
+    case 'period':
+      enterDigit(selected.textContent);
+      break;
+    case 'add':
+    case 'subtract':
+    case 'multiply':
+    case 'divide':
+      enterOperator(selected.textContent);
+      break;
+    case 'equals':
+      enterEqual();
+      break;
+    case 'back':
+      removeDigit();
+      break;
+    case 'clear':
+      clear();
+      break;
+  }
 }
 
 applyEventHandlers();

@@ -76,6 +76,7 @@ button:hover {
   background-color: white;
 }
 
+.pressed, 
 button:active {
   background-color: lightgray;
   color: white;
