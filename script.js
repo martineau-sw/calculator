@@ -11,40 +11,72 @@ function multiply(x, y) {
 }
 
 function divide(x, y) {
-  if (y === 0) {
+  if (y === '0') {
     return 'nooo';
   }
   return x / y;
 }
 
+let decimal = false;
+
 function enterDigit(number) {
-  if (entry.length == 9) return;
-  if (stored && operator === '') {
-    stored = undefined;
+  if (entry.length === 9) return;
+
+  if (number === '.') {
+    if (!decimal) {
+      if (entry.length === 0) {
+        entry += '0.';
+      } else {
+        entry += '.';
+      }
+      decimal = true;
+      console.log(entry);
+      updateDisplay(entry);
+      return;
+    }
+    return;
   }
-  entry += number;
+
+  if (stored && operator === '') {
+    stored = '';
+  }
+
+  if (entry === '0') {
+    entry = number;
+  } else {
+    entry += number;
+  }
+  console.log(entry);
+  updateDisplay(entry);
+}
+
+function removeDigit() {
+  if (entry.length === 0) return;
+  if (entry.at(-1) === '.') {
+    decimal = false;
+  }
+  entry = entry.slice(0, -1);
   updateDisplay(entry);
 }
 
 function enterOperator(symbol) {
-  console.log(symbol);
   if (entry.length > 0) {
-    if(stored) {
-      const result = operate();
-      stored = result;
-      updateDisplay(result);
+    if(stored !== '') {
+      stored = operate();
+      updateDisplay(stored);
     } else {
-      stored = +entry;
-      entry = '';
+      stored = entry;
     }
   }
+  entry = '';
   operator = symbol;
 }
 
 function enterEqual() {
-  console.log('=');
   if (entry.length > 0) {
-    if (stored && operator) {
+    if (stored !== '' && operator !== '') {
+      console.log('=');
+
       const result = operate();
       stored = result;
       entry = '';
@@ -55,9 +87,11 @@ function enterEqual() {
 }
 
 function clear() {
-  stored = undefined;
+  stored = '';
   entry = '';
   operator = '';
+  decimal = false;
+  updateDisplay('');
 }
 
 function updateDisplay(number) {
@@ -71,23 +105,58 @@ function updateDisplay(number) {
     }
   }
 
-  console.log(digits)
-  // const display = document.querySelector('#display');
-  // display.textContent = digits;
+  const display = document.querySelector('#display');
+  display.textContent = digits;
 }
 
-let stored;
+let stored = '';
 let entry = '';
 let operator = '';
 
 function operate() {
-  let result;
   switch (operator) {
     case '+': return add(stored, entry);
     case '-': return subtract(stored, entry); 
-    case '*': return  multiply(stored, entry); 
+    case '*': return multiply(stored, entry); 
     case '/': return divide(stored, entry);
   }
-
-  return result;
 }
+
+function applyEventHandlers() {
+  const numpad = document.querySelector('#numpad');
+
+  buttons.addEventListener('click', event => {
+    switch (event.target.id) {
+      case 'one':
+      case 'two':
+      case 'three':
+      case 'four':
+      case 'five':
+      case 'six':
+      case 'seven':
+      case 'eight':
+      case 'nine':
+      case 'zero':
+      case 'period':
+        enterDigit(event.target.textContent);
+        break;
+      case 'add':
+      case 'subtract':
+      case 'multiply':
+      case 'divide':
+        enterOperator(event.target.textContent);
+        break;
+      case 'equals':
+        enterEqual();
+        break;
+      case 'back':
+        removeDigit();
+        break;
+      case 'clear':
+        clear();
+        break;
+    }
+  });
+}
+
+applyEventHandlers();
